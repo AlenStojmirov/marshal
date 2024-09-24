@@ -1,0 +1,25 @@
+.available-sizes ul, .sold-sizes ul {
+    max-width: 100%;
+}
+
+.card {
+    border-radius: 10px;
+}
+
+@media (max-width: 576px) {
+    .card {
+        padding: 10px;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+    }
+
+    .card-subtitle {
+        font-size: 1rem;
+    }
+
+    .btn {
+        font-size: 0.9rem;
+    }
+}
