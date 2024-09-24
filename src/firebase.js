@@ -5,13 +5,13 @@ import { getDatabase } from "firebase/database"; // For Realtime Database
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-    databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
-    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-    appId: process.env.REACT_APP_FIREBASE_APP_ID
+    apiKey: "AIzaSyDY_7keAOapwki5KHkobg1nZB5fvK8rjjU",
+    authDomain: "marshal-vin.firebaseapp.com",
+    databaseURL: "https://marshal-vin-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "marshal-vin",
+    storageBucket: "marshal-vin.appspot.com",
+    messagingSenderId: "880669944160",
+    appId: "1:880669944160:web:edd59abb47acf61be59605"
 };
 
 // Initialize Firebase
