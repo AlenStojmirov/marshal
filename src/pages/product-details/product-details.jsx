@@ -134,14 +134,19 @@ const ProductDetails = () => {
         }
     };
 
+    // Your handleLogin function
     const handleLogin = async (e) => {
         e.preventDefault();
-        if(e.target.value === process.env.ADMIN){
+        const password = e.target.elements.password.value; // Get the password value
+
+        if (password === process.env.REACT_APP_ADMIN) {
             setRole("admin");
             setFirstLoad(false);
-        } else if(e.target.value === process.env.USER) {
+        } else if (password === process.env.REACT_APP_USER) {
             setRole("user");
             setFirstLoad(false);
+        } else {
+            console.log("Invalid credentials");
         }
     };
 
@@ -164,30 +169,11 @@ const ProductDetails = () => {
                                     <h4 className="text-center">Внеси лозинка</h4>
                                     <form onSubmit={handleLogin}>
                                         <div className="mb-3">
-                                            <label htmlFor="sizeSelect" className="form-label">Select Size</label>
-                                            <select
-                                                id="sizeSelect"
-                                                className="form-select"
-                                                value={selectedSize}
-                                                onChange={(e) => setSelectedSize(e.target.value)}
-                                            >
-                                                <option value="">Choose size...</option>
-                                                {product.sizes?.map((sizeObj, index) => (
-                                                    <option key={index} value={sizeObj.size}>
-                                                        {sizeObj.size} (Qty: {sizeObj.quantity})
-                                                    </option>
-                                                ))}
-                                            </select>
-                                        </div>
-
-                                        <div className="mb-3">
-                                            <label htmlFor="salePrice" className="form-label">Sale Price</label>
                                             <input
-                                                type="number"
+                                                type="text"
                                                 className="form-control"
-                                                id="salePrice"
-                                                value={salePrice}
-                                                onChange={(e) => setSalePrice(e.target.value)}
+                                                id="password"
+                                                name="password" // Add this for easier access
                                             />
                                         </div>
 
@@ -228,11 +214,11 @@ const ProductDetails = () => {
                                 </div>
 
                                 {/* Sold Sizes Section */}
-                                {(product.sold?.length > 0 && role === "admin")(
+                                {((product?.sold?.length > 0) && (role === "admin")) && (
                                     <div className="sold-sizes mt-4">
                                         <h4 className="text-center">Продадени величини</h4>
                                         <ul className="list-group">
-                                            {product.sold.map((soldObj, index) => (
+                                            {product?.sold?.map((soldObj, index) => (
                                                 <li key={index}
                                                     className="list-group-item d-flex justify-content-between align-items-center">
                                                     <div>
