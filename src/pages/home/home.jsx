@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { getDatabase, ref, onValue } from 'firebase/database';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import FilterComponent from "../../components/home-filter/home-filter";
 
 const HomePage = () => {
     const [products, setProducts] = useState({});
+    const [filteredProducts, setFilteredProducts] = useState({});
 
     useEffect(() => {
         const db = getDatabase();
@@ -12,12 +14,18 @@ const HomePage = () => {
         onValue(productsRef, (snapshot) => {
             const data = snapshot.val();
             setProducts(data || {});
+            setFilteredProducts(data || {});
         });
     }, []);
 
+    // Function to handle filtered products
+    const handleFilteredProducts = (products) => {
+        setProducts(products);  // Update the state with filtered products
+    };
+
     return (
-        <div className="container my-4">
-            <h1 className="text-center mb-4">Our Products</h1>
+        Object.keys(products).length && <div className="container my-4">
+            <FilterComponent products={products} onFilter={handleFilteredProducts} onClear={() => setProducts(filteredProducts)}/>
             <div className="row">
                 {Object.keys(products).map((key) => (
                     <div key={key} className="col-lg-4 col-md-6 col-sm-12 mb-4">
