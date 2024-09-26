@@ -14,13 +14,15 @@ const FilterComponent = ({products, onFilter, onClear}) => {
 
     // Function to filter products based on selected filters
     const filterProducts = () => {
-        return Object.values(products).filter(product => {
-            return (
-                (!selectedCategory || product.category === selectedCategory) &&
-                (!selectedPrice || product.price === Number(selectedPrice)) &&
-                (!selectedBrand || product.brand === selectedBrand)
-            );
-        });
+        return Object.fromEntries(
+            Object.entries(products).filter(([key, product]) => {
+                return (
+                    (!selectedCategory || product.category === selectedCategory) &&
+                    (!selectedPrice || product.price === Number(selectedPrice)) &&
+                    (!selectedBrand || product.brand === selectedBrand)
+                );
+            })
+        );
     };
 
     // Use effect to trigger the onFilter callback whenever the filters change
