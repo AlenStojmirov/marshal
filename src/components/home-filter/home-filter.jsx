@@ -96,7 +96,7 @@ const FilterComponent = ({products, onFilter, onClear}) => {
                     </select>
                 </div>
             </div>
-            <button className="btn btn-warning mt-3 w-100" onClick={clear}>Clear Filters</button>
+            <button className="btn btn-danger mt-3 w-100" onClick={clear}>Clear Filters</button>
         </div>
     );
 };

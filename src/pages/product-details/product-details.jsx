@@ -28,6 +28,11 @@ const ProductDetails = () => {
                 const snapshot = await get(productRef);
 
                 if (snapshot.exists()) {
+                    const storedRole = getRoleFromSession();
+                    if (storedRole) {
+                        setRole(storedRole);
+                        setFirstLoad(false);
+                    }
                     setProduct(snapshot.val());
                 } else {
                     console.log('No product found with the given ID');
@@ -41,6 +46,11 @@ const ProductDetails = () => {
 
         fetchProduct();
     }, [productId]);
+
+    // Example usage in a component
+    // useEffect(() => {
+    //
+    // }, []);
 
     const handleSellProduct = async (e) => {
         e.preventDefault();
@@ -134,28 +144,55 @@ const ProductDetails = () => {
         }
     };
 
-    // Your handleLogin function
     const handleLogin = async (e) => {
         e.preventDefault();
         const password = e.target.elements.password.value; // Get the password value
 
+        let role = '';
         if (password === process.env.REACT_APP_ADMIN) {
-            setRole("admin");
-            setFirstLoad(false);
+            role = "admin";
         } else if (password === process.env.REACT_APP_USER) {
-            setRole("user");
-            setFirstLoad(false);
+            role = "user";
         } else {
             console.log("Invalid credentials");
+            return;
         }
+
+        // Set role and current timestamp in session storage
+        const expirationTime = new Date().getTime() + 60 * 60 * 1000; // 1 hour from now
+        sessionStorage.setItem('role', JSON.stringify({ role, expirationTime }));
+
+        setRole(role);
+        setFirstLoad(false);
     };
+
+    // Utility function to get role from session storage
+    const getRoleFromSession = () => {
+        const storedRole = sessionStorage.getItem('role');
+        if (storedRole) {
+            const { role, expirationTime } = JSON.parse(storedRole);
+
+            // Check if the role has expired
+            if (new Date().getTime() > expirationTime) {
+                sessionStorage.removeItem('role');
+                return null;
+            }
+            return role;
+        }
+        return null;
+    };
+
+    const handleLogout = () => {
+        sessionStorage.removeItem('role');
+        window.location.reload();
+    }
 
     if (loading) {
         return <div className="text-center mt-5">Loading...</div>;
     }
 
     if (!product) {
-        return <div className="text-center mt-5">Product not found.</div>;
+        return <div className="text-center mt-5">Продуктот не е пронајден.</div>;
     }
 
     return (
@@ -192,11 +229,12 @@ const ProductDetails = () => {
                         <div className="card shadow-sm">
                             <div className="card-body">
                                 <h1 className="card-title text-center mb-4">{product.name}</h1>
-                                <h5 className="card-subtitle mb-2 text-muted text-center">Brand: {product.brand}</h5>
+                                <h5 className="card-subtitle mb-2 text-muted text-center">Бренд: {product.brand}</h5>
+                                <h5 className="card-subtitle mb-2 text-muted text-center">Цена: {product.price}</h5>
 
                                 {/* Available Sizes Section */}
                                 <div className="available-sizes mt-4">
-                                    <h4 className="text-center">Available Sizes</h4>
+                                    <h4 className="text-center">Достапни величини</h4>
                                     <ul className="list-group">
                                         {product.sizes?.map((sizeObj, index) => (
                                             <li
@@ -276,7 +314,7 @@ const ProductDetails = () => {
                                         <button type="submit" className="btn btn-primary w-100">Потврди</button>
                                     </form>
                                 </div>
-
+                                <button type="button" onClick={() => handleLogout()} className="mt-3 btn btn-danger w-100">Одјави се</button>
                             </div>
                         </div>
                     </div>

@@ -15,6 +15,8 @@ const HomePage = () => {
             const data = snapshot.val();
             setProducts(data || {});
             setFilteredProducts(data || {});
+            const totalSoldPrice = getTotalSoldPrice(data);
+            console.log(totalSoldPrice);
         });
     }, []);
 
@@ -22,6 +24,24 @@ const HomePage = () => {
     const handleFilteredProducts = (products) => {
         setProducts(products);  // Update the state with filtered products
     };
+
+
+    // Function to calculate the sum of sold prices
+    function getTotalSoldPrice(products) {
+        const soldItems = Object.values(products)
+            .map(item => {
+                if(item?.sold){
+                    item.sold["name"] = item.name;
+                    return item.sold;
+                }
+            })
+            .filter(item => item !== undefined); // Filter out undefined values
+
+        console.log(soldItems.flat().map(item => item.price == "0" ? item : ""));
+
+        return soldItems.flat() // Flatten the array of arrays
+            .reduce((total, item) => total + parseFloat(item.price || 0), 0);
+    }
 
     return (
         Object.keys(products).length && <div className="container my-4">
@@ -32,10 +52,10 @@ const HomePage = () => {
                         <div className="card h-100">
                             <div className="card-body d-flex flex-column">
                                 <h5 className="card-title">{products[key].name}</h5>
-                                <p className="card-text">Brand: {products[key].brand}</p>
-                                <p className="card-text">Price: {products[key].price} MKD</p>
+                                <p className="card-text">Бренд: {products[key].brand}</p>
+                                <p className="card-text">Цена: {products[key].price} MKD</p>
                                 <Link to={`/products/${key}`} className="btn btn-primary mt-auto">
-                                    View Details
+                                    Прегледај
                                 </Link>
                             </div>
                         </div>
