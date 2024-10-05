@@ -37,7 +37,7 @@ const HomePage = () => {
             })
             .filter(item => item !== undefined); // Filter out undefined values
 
-        console.log(soldItems.flat().map(item => item.price == "0" ? item : ""));
+        // console.log(soldItems.flat().map(item => item.price == "0" ? item : ""));
 
         return soldItems.flat() // Flatten the array of arrays
             .reduce((total, item) => total + parseFloat(item.price || 0), 0);

@@ -47,11 +47,6 @@ const ProductDetails = () => {
         fetchProduct();
     }, [productId]);
 
-    // Example usage in a component
-    // useEffect(() => {
-    //
-    // }, []);
-
     const handleSellProduct = async (e) => {
         e.preventDefault();
         setSaleError('');
@@ -303,7 +298,7 @@ const ProductDetails = () => {
                                                 type="number"
                                                 className="form-control"
                                                 id="salePrice"
-                                                value={salePrice}
+                                                value={product.price}
                                                 onChange={(e) => setSalePrice(e.target.value)}
                                             />
                                         </div>
