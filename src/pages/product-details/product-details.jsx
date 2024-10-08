@@ -33,6 +33,7 @@ const ProductDetails = () => {
                         setRole(storedRole);
                         setFirstLoad(false);
                     }
+                    setSalePrice(snapshot.val().price);
                     setProduct(snapshot.val());
                 } else {
                     console.log('No product found with the given ID');
@@ -91,7 +92,7 @@ const ProductDetails = () => {
                 sold: updatedSold,
             });
             setSelectedSize('');
-            setSalePrice('');
+            setSalePrice(product.price);
             setSaleError('Производот е успешно продаден!');
         } catch (error) {
             console.error('Error updating product:', error);
@@ -298,7 +299,7 @@ const ProductDetails = () => {
                                                 type="number"
                                                 className="form-control"
                                                 id="salePrice"
-                                                value={product.price}
+                                                value={salePrice}
                                                 onChange={(e) => setSalePrice(e.target.value)}
                                             />
                                         </div>
