@@ -3,9 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const FilterComponent = ({products, onFilter, onClear}) => {
     // Extract unique categories, prices, and brands
-    const uniqueCategories = [...new Set(Object.values(products).map(product => product.category))];
-    const uniquePrices = [...new Set(Object.values(products).map(product => product.price))];
-    const uniqueBrands = [...new Set(Object.values(products).map(product => product.brand))];
+    const uniqueCategories = [...new Set(Object.values(products).map(product => product.category).sort())];
+    const uniquePrices = [...new Set(Object.values(products).map(product => product.price).sort((a, b) => a - b))];
+    const uniqueBrands = [...new Set(Object.values(products).map(product => product.brand).sort())];
 
     // State for selected filters
     const [selectedCategory, setSelectedCategory] = useState('');
