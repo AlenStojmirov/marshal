@@ -16,6 +16,7 @@ const HomePage = () => {
             setProducts(data || {});
             setFilteredProducts(data || {});
             const totalSoldPrice = getTotalSoldPrice(data);
+            getAllProductCash(data);
             console.log(totalSoldPrice);
         });
     }, []);
@@ -41,6 +42,24 @@ const HomePage = () => {
 
         return soldItems.flat() // Flatten the array of arrays
             .reduce((total, item) => total + parseFloat(item.price || 0), 0);
+    }
+
+    function getAllProductCash(products){
+        let sum = 0;
+
+        Object.values(products)
+            .forEach(item => {
+                if(item?.sizes){
+                    item.sizes.forEach((sizeObj) => {
+                        const { quantity } = sizeObj;
+                        const price = item.price;
+
+                        sum += quantity * price;
+                    });
+                }
+            });
+
+        console.log(sum);
     }
 
     return (
