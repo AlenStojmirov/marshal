@@ -192,33 +192,33 @@ const ProductDetails = () => {
     }
 
     return (
-        firstLoad ?
-            <div className="container my-4">
-                <div className="row">
-                    <div className="col-12 col-md-8 mx-auto">
-                        <div className="card shadow-sm">
-                            <div className="card-body">
-                                <div className="sell-product-form mt-4">
-                                    <h4 className="text-center">Внеси лозинка</h4>
-                                    <form onSubmit={handleLogin}>
-                                        <div className="mb-3">
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                id="password"
-                                                name="password" // Add this for easier access
-                                            />
-                                        </div>
-
-                                        <button type="submit" className="btn btn-success w-100">Најви се</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            :
+        // firstLoad ?
+        //     <div className="container my-4">
+        //         <div className="row">
+        //             <div className="col-12 col-md-8 mx-auto">
+        //                 <div className="card shadow-sm">
+        //                     <div className="card-body">
+        //                         <div className="sell-product-form mt-4">
+        //                             <h4 className="text-center">Внеси лозинка</h4>
+        //                             <form onSubmit={handleLogin}>
+        //                                 <div className="mb-3">
+        //                                     <input
+        //                                         type="text"
+        //                                         className="form-control"
+        //                                         id="password"
+        //                                         name="password" // Add this for easier access
+        //                                     />
+        //                                 </div>
+        //
+        //                                 <button type="submit" className="btn btn-success w-100">Најви се</button>
+        //                             </form>
+        //                         </div>
+        //                     </div>
+        //                 </div>
+        //             </div>
+        //         </div>
+        //     </div>
+        //     :
             <div className="container my-4">
                 <div className="row">
                     <div className="col-12 col-md-8 mx-auto">
