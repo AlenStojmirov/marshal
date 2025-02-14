@@ -23,6 +23,22 @@ const SoldProducts = () => {
                     }
                 });
 
+                const unsoldItems = {};
+
+                Object.keys(productsList).forEach(key => {
+                    const item = productsList[key];
+                    const zeroPriceSold = item.sold.filter(sale => sale.price === "0");
+
+                    if (zeroPriceSold.length > 0) {
+                        unsoldItems[key] = {
+                            ...item,
+                            sold: zeroPriceSold
+                        };
+                    }
+                });
+
+                console.log(unsoldItems);
+
                 setProducts(productsList);
                 setFilteredProducts(productsList);
 
